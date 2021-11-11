@@ -46,6 +46,7 @@
         </div>
         <div class="row">
           <button
+            v-if="!isPending"
             type="submit"
             class="
               py-3
@@ -59,8 +60,30 @@
           >
             Sign Up
           </button>
+          <button
+            v-else
+            type="button"
+            class="
+              py-3
+              text-center
+              w-full
+              bg-gray-800
+              text-white
+              font-bold
+              rounded-lg
+              cusor-not-allowed
+            "
+            disabled
+          >
+            Loading...
+          </button>
         </div>
       </form>
+
+      <!-- Start: Error -->
+      <div v-if="error" class="text-left text-red mt-4">
+        <span>{{ error }}</span>
+      </div>
 
       <!-- Start: Direction -->
       <div class="w-full text-center mt-6">
@@ -79,18 +102,21 @@
 
 <script>
 import { ref } from "vue";
+import { useRouter } from "vue-router";
 import { useSignUp } from "@/composables/useSignUp";
 
 export default {
   setup() {
     const { error, isPending, signup } = useSignUp();
+    const router = useRouter();
 
     const fullName = ref("");
     const email = ref("");
     const password = ref("");
 
     async function onSubmit() {
-      await signup(email.value, password.value);
+      await signup(email.value, password.value, fullName.value);
+      if (!error.value) router.push({ name: "Home", params: {} });
     }
     return { fullName, email, password, error, isPending, onSubmit };
   },

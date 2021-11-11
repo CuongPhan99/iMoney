@@ -1,15 +1,17 @@
-import firebase from "firebase";
-import "firebase/auth";
-import "firebase/firestore";
+// v9 compat packages are API compatible with v8 code
+import firebase from "firebase/compat/app";
+import "firebase/compat/auth";
+import "firebase/compat/firestore";
 
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyA8CCszNE6sTV0c1WIQpP9BO0tFZY17wP8",
-  authDomain: "imoney-f8d02.firebaseapp.com",
-  projectId: "imoney-f8d02",
-  storageBucket: "imoney-f8d02.appspot.com",
-  messagingSenderId: "25844797489",
-  appId: "1: 25844797489: web: 9cb93d73d8f9291b3fc510",
-  measurementId: "G-29RQ8G5ZBC",
+  apiKey: "AIzaSyDwQzvnwmB3ZMCrzrrnYQtMorEpwUI-RGg",
+  authDomain: "imoney-e35fd.firebaseapp.com",
+  projectId: "imoney-e35fd",
+  storageBucket: "imoney-e35fd.appspot.com",
+  messagingSenderId: "162678389045",
+  appId: "1:162678389045:web:bc9d0c50f29d83b877f47c",
+  measurementId: "G-XJ66LCHQQV",
 };
 
 firebase.initializeApp(firebaseConfig);
