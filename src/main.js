@@ -7,10 +7,18 @@ import "./assets/styles/global.css";
 
 import { registerGlobalComponents } from "./utils/import";
 
-const app = createApp(App);
+import { projectAuth } from "./configs/firebase";
 
-registerGlobalComponents(app);
+let app;
 
-app.use(router);
+projectAuth.onAuthStateChanged(() => {
+  if (!app) {
+    app = createApp(App);
 
-app.mount("#app");
+    registerGlobalComponents(app);
+
+    app.use(router);
+
+    app.mount("#app");
+  }
+});
