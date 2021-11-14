@@ -1,6 +1,7 @@
 // v9 compat packages are API compatible with v8 code
 import firebase from "firebase/compat/app";
 import "firebase/compat/auth";
+import "firebase/compat/storage";
 import "firebase/compat/firestore";
 
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
@@ -17,8 +18,9 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 const projectAuth = firebase.auth();
+const projectStorage = firebase.storage();
 const projectFirestore = firebase.firestore();
 
 const timestamp = firebase.firestore.FieldValue.serverTimestamp;
 
-export { projectAuth, projectFirestore, timestamp };
+export { projectAuth, projectStorage, projectFirestore, timestamp };

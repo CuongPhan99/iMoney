@@ -27,7 +27,7 @@
                   class="text-4xl text-dark w-full outline-none mt-1"
                   type="text"
                   placeholder="0"
-                  v-model="total"
+                  v-model.number="total"
                 />
               </div>
             </label>
@@ -161,6 +161,7 @@
                     class="text-dark w-full outline-none"
                     type="text"
                     placeholder="Select a location"
+                    v-model="location"
                   />
                 </div>
               </label>
@@ -178,6 +179,7 @@
                     class="text-dark w-full outline-none"
                     type="text"
                     placeholder="With person"
+                    v-model="person"
                   />
                 </div>
               </label>
@@ -224,17 +226,21 @@
 import { ref } from "vue";
 import { useUser } from "@/composables/useUser";
 import useCollection from "@/composables/useCollection";
+import useStorage from "@/composables/useStorage";
 
 export default {
   setup() {
     const isMoreDetails = ref(false);
     const { getUser } = useUser();
     const { error, addRecord } = useCollection("transaction");
+    const { url, uploadFile } = useStorage("transactions");
 
     const total = ref(0);
     const category = ref("");
     const note = ref("");
     const time = ref(new Date());
+    const location = ref("");
+    const person = ref("");
     const file = ref(null);
     const errorFile = ref(null);
 
@@ -244,15 +250,15 @@ export default {
 
       if (selected && typesFile.includes(selected.type)) {
         file.value = selected;
-        console.log(file.value);
       } else {
         file.value = null;
         errorFile.value = "Please select a file type png or jpg";
-        console.log(errorFile.value);
       }
     }
 
     async function onSubmit() {
+      if (file.value) await uploadFile(file.value);
+
       const { user } = getUser();
 
       const transaction = {
@@ -260,7 +266,10 @@ export default {
         category: category.value,
         note: note.value,
         time: time.value,
+        location: location.value,
+        person: person.value,
         userId: user.value.uid,
+        thumbnail: url.value,
       };
 
       await addRecord(transaction);
@@ -274,6 +283,8 @@ export default {
       category,
       note,
       time,
+      location,
+      person,
       errorFile,
       onChangeFile,
       onSubmit,
