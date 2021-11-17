@@ -1,5 +1,7 @@
 <template>
   <form @submit.prevent="onSubmit">
+    <navigation-header></navigation-header>
+
     <!-- Start: Main Form -->
     <div class="row mt-8">
       <div class="bg-white rounded-lg py-4">
@@ -204,6 +206,7 @@
                   <input
                     id="file"
                     type="file"
+                    accept="image/*"
                     class="w-0 h-0 overflow-hidden absolute"
                     @change="onChangeFile"
                   />
@@ -215,10 +218,6 @@
         <div class="text-red my-3 px-8">{{ errorFile }}</div>
       </div>
     </template>
-
-    <button type="submit" class="bg-primary text-white">
-      Testing Add Button
-    </button>
   </form>
 </template>
 
@@ -227,8 +226,10 @@ import { ref } from "vue";
 import { useUser } from "@/composables/useUser";
 import useCollection from "@/composables/useCollection";
 import useStorage from "@/composables/useStorage";
+import NavigationHeader from "@/components/NavigationHeader.vue";
 
 export default {
+  components: { NavigationHeader },
   setup() {
     const isMoreDetails = ref(false);
     const { getUser } = useUser();
@@ -246,7 +247,7 @@ export default {
 
     function onChangeFile(event) {
       const selected = event.target.files[0];
-      const typesFile = ["image/png", "image/jpg"];
+      const typesFile = ["image/png", "image/jpeg"];
 
       if (selected && typesFile.includes(selected.type)) {
         file.value = selected;

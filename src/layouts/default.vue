@@ -1,5 +1,5 @@
 <template>
-  <navigation-header />
+  <navigation-header v-if="meta.isShowHeader" />
   <slot />
   <navigation-bottom v-if="meta.isShowFooter" />
 </template>

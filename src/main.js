@@ -1,4 +1,5 @@
 import { createApp } from "vue";
+import mitt from "mitt";
 import App from "./App.vue";
 import router from "./router";
 
@@ -13,12 +14,14 @@ let app;
 
 projectAuth.onAuthStateChanged(() => {
   if (!app) {
+    const emitter = mitt();
     app = createApp(App);
 
     registerGlobalComponents(app);
 
     app.use(router);
 
+    app.config.globalProperties.emitter = emitter;
     app.mount("#app");
   }
 });

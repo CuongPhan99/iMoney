@@ -1,5 +1,5 @@
 <template>
-  <header id="header" class="py-8">
+  <header id="header" class="pt-8">
     <div class="container mx-auto px-8">
       <div class="flex justify-between items-center">
         <div class="flex items-center">
@@ -19,7 +19,10 @@
         <div class="flex">
           <ul>
             <li>
-              <i class="t2ico t2ico-notification text-2xl"></i>
+              <i class="t2ico text-2xl" :class="meta.icon"></i>
+              <button type="submit" class="font-bold text-xl">
+                {{ meta.textSubmit }}
+              </button>
             </li>
           </ul>
         </div>
@@ -34,9 +37,11 @@ import { useRoute } from "vue-router";
 export default {
   setup() {
     const route = useRoute();
+
     return {
       meta: computed(() => route.meta),
     };
   },
+  // emits: ["callSubmit"],
 };
 </script>

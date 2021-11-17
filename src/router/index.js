@@ -16,6 +16,7 @@ const routes = [
     meta: {
       text: "Hey, Manh Cuong",
       leading: true,
+      isShowHeader: true,
       isShowFooter: true,
     },
     component: () =>
@@ -45,7 +46,9 @@ const routes = [
     meta: {
       text: "Profile",
       leading: false,
+      isShowHeader: true,
       isShowFooter: true,
+      icon: "t2ico-setting",
     },
     component: () =>
       import(/* webpackChunkName: "profile" */ "../views/profile.vue"),
@@ -63,6 +66,7 @@ const routes = [
     meta: {
       text: "Report",
       leading: false,
+      isShowHeader: true,
       isShowFooter: true,
     },
     component: () =>
@@ -74,6 +78,7 @@ const routes = [
     meta: {
       text: "Budget",
       leading: false,
+      isShowHeader: true,
       isShowFooter: true,
     },
     component: () =>
@@ -83,9 +88,11 @@ const routes = [
     path: "/new-transaction",
     name: "NewTransaction",
     meta: {
-      text: "NewTransaction",
+      text: "Add Transaction",
       leading: false,
+      isShowHeader: false,
       isShowFooter: false,
+      textSubmit: "Add",
     },
     component: () =>
       import(
